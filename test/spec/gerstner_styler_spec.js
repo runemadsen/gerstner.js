@@ -1,6 +1,3 @@
-/* GHAPI Stubbing
-------------------------------------------------------------------- */
-
 describe("Gerstner.Styler", function() {
 
   var s;
@@ -40,5 +37,4 @@ describe("Gerstner.Styler", function() {
     expect(s.render().$el.html()).toBe('body {\n  color : #FFF;\n  font-family : Helvetica;\n}\n\n');
   });
 
-  // it should generate a grid system into it
 });

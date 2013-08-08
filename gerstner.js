@@ -31,20 +31,26 @@
       this.$el.empty();
 
       _.each(this.styles, function(styles, selector) {
-        
         this.$el.append(selector + " {\n");
-
         _.each(styles, function(cssVal, cssProp) {
           this.$el.append("  " + cssProp + " : " + cssVal + ";\n");
         }, this);
-
         this.$el.append("}\n\n");
-
       }, this);
 
       return this;
     }
 
   });
+
+  // Gerstner.Random
+  // ---------------------------------------------------------
+
+  // random classes that can be used from the outside to generate random values
+
+  // Gerstner.Grid
+  // ---------------------------------------------------------
+
+
 
 }).call(this);
