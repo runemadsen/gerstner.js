@@ -32,7 +32,7 @@ This is how to dynamically create an empty `<style>` tag on a webpage:
 
 This, of course, won't do much. But once you have a `Gerstner.Styler` object, you can add styles directly in JS:
 
-```javascripts
+```javascript
 var s = new Gerstner.Styler();
 
 s.addStyle(".myclass", {
@@ -43,7 +43,7 @@ s.addStyle(".myclass", {
 $('head').append(s.render().el);
 ```
 
-As you can see, the first argument to the `addStyle` function is the CSS selector, and the second argument is an object with key/value pairs corresponsing to the CSS keys and values. The code above will produce the following tag:
+As you can see, the first argument to the `addStyle` function is the CSS selector, and the second argument is an object with key/value pairs corresponding to the CSS keys and values. The code above will produce the following tag:
 
 ```html
 <style>
