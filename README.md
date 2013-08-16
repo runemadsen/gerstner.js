@@ -57,3 +57,9 @@ As you can see, the first argument to the `addStyle` function is the CSS selecto
 You can add as many styles as you want, and the library will automatically merge duplicated selectors.
 
 For a simple example of `Gerstner.Styler` in use, see the `generative_color_scheme.html` example in the `/examples` folder.
+
+
+Generative Color
+----------------
+
+This library doesn't ship with a built-in color library, but it's easy to generate colors with such brilliant libraries as [color.js](https://github.com/brehaut/color-js) or [toxiclibs.js](http://haptic-data.com/toxiclibsjs/)
