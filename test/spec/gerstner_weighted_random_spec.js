@@ -27,4 +27,22 @@ describe("Gerstner.WeightedRandom", function() {
     expect(["Zach", "Steve", "Rune"]).toContain(r.random());
   });
 
+  it("should pick correct values", function() {
+    r.add("Zach", 1);
+    r.add("Steve", 10);
+    
+    var results = [];
+    results["Zach"] = 0;
+    results["Steve"] = 0;
+
+    _.times(5000, function() {
+      var ran = r.random();
+      results[ran] += 1;
+    });
+
+    var ratio = Math.round(results["Steve"] / results["Zach"]);
+    expect(ratio).toBeLessThan(12);
+    expect(ratio).toBeGreaterThan(8);
+  });
+
 });
