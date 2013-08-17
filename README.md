@@ -9,7 +9,7 @@ If you like tests, there's also a bunch of those to help you.
 Gerstner.Styler
 ---------------
 
-This is the only class in the library right now, and it can be used to generate a `<style>` element that can be inserted in the `<head>` section of a web page.
+This class can be used to generate a `<style>` element that can be inserted in the `<head>` section of a web page.
 
 This is how to dynamically create an empty `<style>` tag on a webpage:
 
@@ -58,6 +58,32 @@ You can add as many styles as you want, and the library will automatically merge
 
 For a simple example of `Gerstner.Styler` in use, see the `generative_color_scheme.html` example in the `/examples` folder.
 
+
+Gerstner.WeightedRandom
+-----------------------
+
+`WeightedRandom` can help you randomly pick an object from a list of objects, each having a specified weight that determines its change of getting picked.
+
+Here's a simple example of how to add a number of objects, and have the class pick a value for you.
+
+```javascripts
+var r = new Gerstner.WeightedRandom();
+r.add("Zach", 1);
+r.add("Steve", 3);
+r.add("Rune", 2);
+var randomName = r.random();
+```
+
+Above, "Steve" has 3 times the chance of getting picked over "Zach", while "Rune" has 2 times the chance over "Zach".
+
+You can pass any object to the `WeightedRandom` class, as shown in the following code.
+
+```javascripts
+var r = new Gerstner.WeightedRandom();
+r.add({ fontSize : 14, fontFamily: "Helvetica"}, 5);
+r.add({ fontSize : 13, fontFamily: "Arial"}, 4);
+var fontSetting = r.random();
+```
 
 Generative Color
 ----------------
