@@ -43,10 +43,38 @@
 
   });
 
-  // Gerstner.Random
+  // Gerstner.WeightedRandom
   // ---------------------------------------------------------
 
-  // random classes that can be used from the outside to generate random values
+  var WeightedRandom = Gerstner.WeightedRandom = function()
+  {
+    this.totalWeight = 0;
+    this.elements = [];
+    this.initialize.apply(this, arguments);
+  }
+
+  _.extend(WeightedRandom.prototype, {
+
+    initialize : function()
+    {
+    
+    },
+
+    add : function(value, weight)
+    {
+      this.totalWeight += weight;
+      this.elements.push({
+        value  : value,
+        weight : weight
+      });
+      this.elements = _.sortBy(this.elements, function(element){
+        return -element.weight;
+      });
+    }
+
+  });
+
+  
 
   // Gerstner.Grid
   // ---------------------------------------------------------
