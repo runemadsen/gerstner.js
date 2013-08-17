@@ -62,7 +62,7 @@ For a simple example of `Gerstner.Styler` in use, see the `generative_color_sche
 Gerstner.WeightedRandom
 -----------------------
 
-`WeightedRandom` can help you randomly pick an object from a list of objects, each having a specified weight that determines its change of getting picked.
+The `WeightedRandom` class can help you randomly pick an object from a list of objects, each having a specified weight that determines its chance of getting picked.
 
 Here's a simple example of how to add a number of objects, and have the class pick a value for you.
 
@@ -74,15 +74,17 @@ r.add("Rune", 2);
 var randomName = r.random();
 ```
 
-Above, "Steve" has 3 times the chance of getting picked over "Zach", while "Rune" has 2 times the chance over "Zach".
+Above, "Steve" has 3 times the chance of getting picked over `"Zach"`, while `"Rune"` has 2 times the chance over `"Zach"`.
 
-You can pass any object to the `WeightedRandom` class, as shown in the following code.
+You can pass any object to the `WeightedRandom` class, as shown in the following code where we use `WeightedRandom` to pick a setting for our fonts, and pass that to the `Gerstner.Styler` object.
 
 ```javascripts
 var r = new Gerstner.WeightedRandom();
-r.add({ fontSize : 14, fontFamily: "Helvetica"}, 5);
-r.add({ fontSize : 13, fontFamily: "Arial"}, 4);
-var fontSetting = r.random();
+r.add({ "font-size" : 14, "font-family" : "Helvetica"}, 5);
+r.add({ "font-size" : 13, "font-family": "Arial"}, 4);
+
+var s = new Gerstner.Styler();
+s.addStyle("body", r.random());
 ```
 
 Generative Color
