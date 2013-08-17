@@ -70,6 +70,16 @@
       this.elements = _.sortBy(this.elements, function(element){
         return -element.weight;
       });
+    },
+
+    random : function()
+    {
+      var ran = Math.random() * this.totalWeight;
+      var sum = this.totalWeight;
+      return _.find(this.elements, function(element) {
+        sum -= element.weight;
+        return sum <= ran;
+      }).value;
     }
 
   });

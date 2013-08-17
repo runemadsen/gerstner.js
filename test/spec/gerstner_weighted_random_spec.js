@@ -18,4 +18,13 @@ describe("Gerstner.WeightedRandom", function() {
     expect(r.elements[2].value).toEqual("Zach");
   });
 
+  it("should give back a random value back", function()
+  {
+    r.add("Zach", 1);
+    r.add("Steve", 3);
+    r.add("Rune", 2);
+
+    expect(["Zach", "Steve", "Rune"]).toContain(r.random());
+  });
+
 });
