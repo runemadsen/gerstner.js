@@ -43,6 +43,17 @@
 
   });
 
+  // Gerstner.random
+  // ---------------------------------------------------------
+
+  Gerstner.random = function(low, high)
+  {
+    if(high)
+      return (Math.random() * (high-low)) + low;
+    else
+      return Math.random() * low;
+  }
+
   // Gerstner.WeightedRandom
   // ---------------------------------------------------------
 
