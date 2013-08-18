@@ -64,14 +64,14 @@ Gerstner.random()
 
 Gerstner ships with a number of functions that makes it easier to generate random values for your CSS. The simplest is `Gerstner.random` that can generate a number between two numbers:
 
-```javascript`
+```javascript
 // generate a random number between 10 and 20
 var ran = Gerstner.random(10, 20);
 ```
 
 You can also generate a number between zero and a higher number, by passing in a single parameter:
 
-```javascript`
+```javascript
 // generate a random number between 0 and 20
 var ran = Gerstner.random(20);
 ```
