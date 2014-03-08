@@ -104,6 +104,11 @@ var s = new Gerstner.Styler();
 s.addStyle("body", r.random());
 ```
 
+Gerstner.Font
+-------------
+
+The `Font` class can be used to generate web fonts via JS. Examples coming soon!
+
 Generative Color
 ----------------
 
