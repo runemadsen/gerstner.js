@@ -44,11 +44,6 @@
     {
       this.$el.empty();
 
-      // render styles
-      _.each(this.styles, function(styles, selector) {
-        this.renderCSSRule(selector, styles);
-      }, this);
-
       // render fonts
       _.each(this.fonts, function(font) {
         font.render();
@@ -56,6 +51,11 @@
           "font-family" : font.fontName,
           "src" : 'url(data:font/woff;charset=utf-8;base64,'+font.getBase64()+') format("svg")'
         });
+      }, this);
+
+      // render styles
+      _.each(this.styles, function(styles, selector) {
+        this.renderCSSRule(selector, styles);
       }, this);
 
       return this;
