@@ -11,6 +11,7 @@
     this.$el = $("<style></style>");
     this.el = this.$el[0];
     this.styles = {};
+    this.fonts = [];
   }
 
   _.extend(Styler.prototype, {
@@ -26,16 +27,35 @@
         this.styles[selector] = styles;
     },
 
+    addFont : function(font) {
+      this.fonts.push(font);
+    },
+
+    renderCSSRule : function(selector, styles)
+    {
+      this.$el.append(selector + " {\n");
+      _.each(styles, function(cssVal, cssProp) {
+        this.$el.append("  " + cssProp + " : " + cssVal + ";\n");
+      }, this);
+      this.$el.append("}\n\n");
+    },
+
     render : function()
     {
       this.$el.empty();
 
+      // render styles
       _.each(this.styles, function(styles, selector) {
-        this.$el.append(selector + " {\n");
-        _.each(styles, function(cssVal, cssProp) {
-          this.$el.append("  " + cssProp + " : " + cssVal + ";\n");
-        }, this);
-        this.$el.append("}\n\n");
+        this.renderCSSRule(selector, styles);
+      }, this);
+
+      // render fonts
+      _.each(this.fonts, function(font) {
+        font.render();
+        this.renderCSSRule("@font-face", {
+          "font-family" : font.fontName,
+          "src" : 'url(data:font/woff;charset=utf-8;base64,'+font.getBase64()+') format("svg")'
+        });
       }, this);
 
       return this;
@@ -157,35 +177,5 @@
     }
 
   });
-
-  /*
-  
-  
-      font_tag.selectAll("path")
-        .data(letters)
-        .enter().append("svg:glyph")
-        
-      ;
-  
-      return window.btoa(svgContainer.innerHTML);
-    }
-
-    function createStylesheet()
-    {
-      var s = new Gerstner.Styler();
-
-      s.addStyle("@font-face", {
-        "font-family": "piefont",
-        "src" : 'url(data:font/woff;charset=utf-8;base64,'+generateFontFace()+') format("svg")'
-      });
-    
-      s.addStyle("h1", {
-        "font-family": "piefont",
-        "font-size" : "50px"
-      });
-    
-      $('head').append(s.render().el);
-    }
-  */
 
 }).call(this);
