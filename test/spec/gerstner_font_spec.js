@@ -56,9 +56,9 @@ describe("Gerstner.Font", function() {
       var f = new Gerstner.Font("RuneFont", {});
       f.addGlyph("a", "myglyphdata");
       f.render();
-      expect(f.$("font-face glyph").length).toBe(1);
-      expect(f.$("font-face glyph").attr("d")).toBe("myglyphdata");
-      expect(f.$("font-face glyph").attr("unicode")).toBe("a");
+      expect(f.$("font glyph").length).toBe(1);
+      expect(f.$("font glyph").attr("d")).toBe("myglyphdata");
+      expect(f.$("font glyph").attr("unicode")).toBe("a");
     });
 
   });

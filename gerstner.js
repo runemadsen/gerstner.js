@@ -167,7 +167,7 @@
         gel.attr("unicode", k);
         gel.attr("d", v.d);
         _.each(v.attribs, function(v2,k2) { gel.attr(k2, v2); });
-        this.$("font-face").append(gel);
+        this.$("font").append(gel);
       }, this);
     },
 

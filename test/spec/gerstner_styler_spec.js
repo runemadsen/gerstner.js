@@ -63,7 +63,7 @@ describe("Gerstner.Styler", function() {
       f.addGlyph("a", "myglyphdata");
       s.addFont(f);
       s.render();
-      expect(s.render().$el.html()).toBe('@font-face {\n  font-family : RuneFont;\n  src : url(data:font/woff;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxmb250IGlkPSJSdW5lRm9udCI+PGZvbnQtZmFjZSBmb250LWZhbWlseT0iUnVuZUZvbnQiPjxnbHlwaCB1bmljb2RlPSJhIiBkPSJteWdseXBoZGF0YSI+PC9nbHlwaD48L2ZvbnQtZmFjZT48L2ZvbnQ+PC9kZWZzPjwvc3ZnPg==) format("svg");\n}\n\n');
+      expect(s.render().$el.html()).toBe('@font-face {\n  font-family : RuneFont;\n  src : url(data:font/woff;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxmb250IGlkPSJSdW5lRm9udCI+PGZvbnQtZmFjZSBmb250LWZhbWlseT0iUnVuZUZvbnQiPjwvZm9udC1mYWNlPjxnbHlwaCB1bmljb2RlPSJhIiBkPSJteWdseXBoZGF0YSI+PC9nbHlwaD48L2ZvbnQ+PC9kZWZzPjwvc3ZnPg==) format("svg");\n}\n\n');
     });
 
     it("should rerender updated fonts", function() {
