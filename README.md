@@ -107,7 +107,7 @@ s.addStyle("body", r.random());
 Gerstner.Font
 -------------
 
-The `Gerstner.Font` class can be used to generate SVG web fonts via JS. It can generate a base64 encoded SVG string that can be used with a `Gerstner.Styler` object to generate a valid `font-face` rule. Because these fonts are created dynamically, you can change change and rerender them over time, while still preserving copy/paste functionality.
+The `Gerstner.Font` class can be used to generate SVG web fonts via JS. It can generate a base64 encoded SVG string that can be used with a `Gerstner.Styler` object to generate a valid `font-face` rule. Because these fonts are created dynamically, you can change and rerender them over time, while still preserving copy/paste functionality.
 
 First, you have to create a `Gerstner.Font` object. The constructor takes a name of the new font and an object of attributes that will be added to the `font-face` SVG tag. Here's a simple example.
 
