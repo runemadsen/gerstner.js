@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <script src="../../test/lib/jquery.js" charset="utf-8"></script>
+  <script src="../../test/lib/underscore.js" charset="utf-8"></script>
+  <script src="../../gerstner.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  $(function() {
+
+    var addRotation = 0;
+
+    function toRadians(d) {
+      return d * (Math.PI/180);
+    }
+
+    function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+      var angleInRadians = angleInDegrees * Math.PI / 180.0;
+      var x = centerX + radius * Math.cos(angleInRadians);
+      var y = centerY + radius * Math.sin(angleInRadians);
+      return { x : x, y : y };
+    }
+
+    function arcToPath(pieData) {
+      var start = polarToCartesian(pieData.x, pieData.y, pieData.radius, pieData.stop + addRotation);
+      var end = polarToCartesian(pieData.x, pieData.y, pieData.radius, pieData.start + addRotation);
+      var arcSweep = (pieData.stop + addRotation) - (pieData.start + addRotation) <= 180 ? "0" : "1";
+      var d = [
+          "M", pieData.x, pieData.y,
+          "L", start.x, start.y, 
+          "A", pieData.radius, pieData.radius, 0, arcSweep, 0, end.x, end.y,
+          "z"
+      ].join(" ");
+      return d;
+    }
+
+    function arcsToPath(piesData) {
+      return arcToPath(piesData[0]) + " " + arcToPath(piesData[1])
+    }
+
+    var letters = [
+      {
+        character : "a",
+        pies : [
+          { x: 150, y: 300, radius: 300, start: 242, stop: 298 },
+          { x: 150, y: 300, radius: 300, start: 242, stop: 298 }
+        ]
+      },
+      {
+        character : "b",
+        spacing : 230,
+        pies : [
+          { x: 15, y: 203, radius: 105, start: 270, stop: 450 },
+          { x: 115, y: 100, radius: 105, start: 0, stop: 359.99 }
+        ]
+      },
+      {
+        character : "c",
+        spacing : 260,
+        pies : [
+          { x: 160, y: 150, radius: 150, start: 60, stop: 305 },
+          { x: 160, y: 150, radius: 150, start: 60, stop: 305 }
+        ]
+      },
+      {
+        character : "d",
+        spacing: 205,
+        pies : [
+          { x: 30, y: 150, radius: 148, start: -90, stop: 90 },
+          { x: 30, y: 150, radius: 148, start: -90, stop: 90 } 
+        ]
+      },
+      {  
+        character: 'e',
+        spacing: 290,
+        pies : [
+          { x: 165, y: 150, radius: 150, start: 53, stop: 313 },
+          { x: 250, y: 145, radius: 90, start: 135, stop: 225 } 
+        ]
+      }, 
+      {
+        character: 'f',
+        spacing: 290,
+        pies : [
+          { x: 165, y: 150, radius: 150, start: 45, stop: 270 }, 
+          { x: 235, y: 130, radius: 90, start: 115, stop: 205 } 
+        ]
+      },
+      {
+        character: 'g',
+        spacing: 286,
+        pies : [
+          { x: 165, y: 150, radius: 150, start: 55, stop: 300 },
+          { x: 260, y: -10, radius: 178, start: 90, stop: 140 }
+        ]
+      },
+      {
+        character: 'h',
+        pies : [
+          { x: 30, y: 150, radius: 150, start: 270, stop: 90 },
+          { x: 270, y: 150, radius: 150, start: 90, stop: 270 } 
+        ]
+      },
+      {
+        character: 'i',
+        spacing: 200,
+        spacing: 165,
+        pies : [
+          { x: 130, y: 15, radius: 285, start: 90, stop: 110 },
+          { x: 32, y: 285, radius: 286, start: 270, stop: 290 }
+        ]
+      },
+      {
+        character: 'j',
+        spacing: 275,
+        pies : [
+          { x: 240, y: 305, radius: 235, start: 242, stop: 270 },
+          { x: 135, y: 102, radius: 110, start: 170, stop: 370 } 
+        ]
+      },
+      {
+        character: 'k',
+        spacing: 290,
+        pies : [
+          { x: 30, y: -10, radius: 310, start: 55, stop: 90 },
+          { x: 180, y: 150, radius: 150, start: 55, stop: 305 } 
+        ]
+      },
+      {
+        character: 'l',
+        pies : [
+          { x: 35, y: 310, radius: 310, start: 270, stop: 300 },
+          { x: 35, y: 0, radius: 230, start: 0, stop: 25 } 
+        ]
+      },
+      {
+        character: 'm',
+        spacing: 390,
+        pies : [
+          { x: 0, y: -6, radius: 300, start: 45, stop: 87 },
+          { x: 220, y: 140, radius: 150, start: -56, stop: 214 }
+        ]
+      },
+      {
+        character: 'n',
+        pies : [
+          { x: 35, y: 0, radius: 300, start: 40, stop: 90 },
+          { x: 275, y: 300, radius: 300, start: 220, stop: 270 }
+        ]
+      },
+      {
+        character: 'o',
+        spacing: 340,
+        pies : [
+          { x: 170, y: 150, radius: 150, start: 0, stop: 180 },
+          { x: 170, y: 150, radius: 150, start: 180, stop: 360 }
+        ]
+      },
+      {
+        character: 'p',
+        spacing: 285,
+        pies : [
+          { x: 150, y: 190, radius: 110, start: 0, stop: 359.99 },
+          { x: 65, y: -5, radius: 260, start: 54, stop: 100 } 
+        ]
+      },
+      {
+        character: 'q',
+        spacing: 340,
+        pies : [
+          { x: 160, y: 150, radius: 143, start: 0, stop: 359.99 },
+          { x: 235, y: -3, radius: 85, start: -10, stop: 180 } 
+        ]
+      },
+      {
+        character: 'r',
+        spacing: 260,
+        pies : [
+          { x: 30, y: -10, radius: 310, start: 50, stop: 90 },
+          { x: 165, y: 100, radius: 107, start: 133, stop: 313 } 
+        ]
+      },
+      {
+        character: 's',
+        spacing: 270,
+        pies : [
+          { x: 133, y: 205, radius: 95, start: 37, stop: 270 },
+          { x: 130, y: 110, radius: 110, start: -160, stop: 90 }
+        ]
+      },
+      {
+        character: 't',
+        pies : [
+          { x: 150, y: 170, radius: 130, start: 0, stop: 180 },
+          { x: 205, y: 130, radius: 130, start: 105, stop: 285 }
+        ]
+      },
+      {
+        character: 'u',
+        spacing: 340,
+        pies : [
+          { x: 170, y: 150, radius: 150, start: -180, stop: 70 },
+          { x: 20, y: 150, radius: 140, start: 0, stop: 90 }
+        ]
+      },
+      {
+        character: 'v',
+        spacing: 310,
+        pies : [
+          { x: 160, y: 0, radius: 300, start: 62, stop: 118 },
+          { x: 160, y: 0, radius: 300, start: 62, stop: 118 }
+        ]
+      },
+      {
+        character: 'w',
+        spacing: 410,
+        pies : [
+          { x: 90, y: 140, radius: 145, start: -60, stop: 120 },
+          { x: 320, y: 140, radius: 145, start: 60, stop: 240 }
+        ]
+      },
+      {
+        character: 'x',
+        spacing: 250,
+        pies : [
+          { x: 120, y: 220, radius: 95, start: -230, stop: 50 },
+          { x: 120, y: 80, radius: 105, start: -50, stop: 230 }
+        ]
+      },
+      {
+        character: 'y',
+        spacing: 290,
+        pies : [
+          { x: 125, y: 210, radius: 100, start: 130, stop: 310 },
+          { x: 105, y: 160, radius: 160, start: -120, stop: 60 } 
+        ]
+      } ,
+      {
+        character: 'z',
+        pies : [
+          { x: 30, y: 280, radius: 240, start: -60, stop: 0 },
+          { x: 290, y: 10, radius: 260, start: 120, stop: 180 } 
+        ]
+      }
+    ];
+
+    // create a stylesheet generator
+    var s = new Gerstner.Styler();
+
+    // create a font generator
+    var f = new Gerstner.Font("piefont", {
+      "font-weight" : "700",
+      "font-stretch" : "normal",
+      "units-per-em" : "300",
+      /*"ascent" : "300",
+      "descent" : "0",
+      "x-height" : "300",
+      "cap-height" : "300",
+      "bbox" : "0 0 300 300",
+      "underline-thickness" : "45",
+      "underline-position" : "-115",
+      "stemh" : " 109 ",
+      "stemv" : " 127 ",
+      "unicode-range" : "U+0001-20AC"*/
+    });
+
+    // add all glyphs to font generator
+    _.each(letters, function(letter) {
+      f.addGlyph(letter.character, arcsToPath(letter.pies), {
+        "horiz-adv-x" : letter.spacing || 300
+      });
+    });
+
+    // add font to gerstner
+    s.addFont(f);
+    
+    s.addStyle("h1", {
+      "font-family": "piefont",
+      "font-size" : "50px"
+    });
+    
+    $('head').append(s.render().el);
+  });
+
+  
+  
+  </script>
+</head>
+<body>
+  <h1>hello world</h1>
+</body>
+</html>
