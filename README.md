@@ -107,9 +107,9 @@ s.addStyle("body", r.random());
 Gerstner.Font
 -------------
 
-The `Font` class can be used to generate SVG web fonts via JS. You use it with a `Gerstner.Styler` object to generate a `font-face` rule with a base64 encoded SVG string that can be used throughput the css. Because these fonts are dynamically created, you can change the font over time to animate it, while still being "real" text that you can copy/paste.
+The `Gerstner.Font` class can be used to generate SVG web fonts via JS. It can generate a base64 encoded SVG string that can be used with a `Gerstner.Styler` object to generate a valid `font-face` rule. Because these fonts are created dynamically, you can change change and rerender them over time, while still preserving copy/paste functionality.
 
-The `Font` object takes a name of the new font and a number of settings that will be added to the `font-face` SVG tag. Here's a bare minimum.
+First, you have to create a `Gerstner.Font` object. The constructor takes a name of the new font and an object of attributes that will be added to the `font-face` SVG tag. Here's a simple example.
 
 ```js
 var f = new Gerstner.Font("myfont", {
@@ -117,7 +117,7 @@ var f = new Gerstner.Font("myfont", {
 });
 ```
 
-Now that you have the `Font` object, you can add glyphs to your font. The `addGlyph` function takes the unicode character, the SVG glyph path data, and an optional object of extra attributes for the glyph tag. Here's an example of a glyph made up of a triangle with a kerning of 55 pixels. 
+Now you can start adding glyphs to your font object. The `addGlyph` function takes the unicode character of the glyph, the SVG glyph path data, and an optional object of extra attributes for the glyph tag. Here's an example of a glyph made up of a triangle with a kerning of 5 pixels. 
 
 ```js
 f.addGlyph("a", "M 50 0 L 50 50 L 0 50 Z", {
@@ -125,9 +125,9 @@ f.addGlyph("a", "M 50 0 L 50 50 L 0 50 Z", {
 });
 ```
 
-Keep in mind that `Gerstner.js` won't help you with generating the glyph path. You will need to do that yourself, or via a library like `d3.js`. If you use `d3.js` please know that the SVG glyph tag specification only supports a single path "d" attribute, and d3.js will automatically generate multiple paths using "transform" to position them. So you might need to fight it a little bit.
+Keep in mind that `Gerstner.js` won't help you generate the glyph path data. You will need to do that yourself, or via a library like `d3.js`. If you use d3, please know that the SVG glyph tag specification only supports a single "d" attribute and no nested `path` tags, which goes against d3's general philosophy.
 
-Now that you've added as many glyphs as you want to, you can add the `Font` object to the `Styler` and generate a stylesheet. This is shown here with an extra css rule that uses the new font.
+Now that you've added one or many glyphs to your font, you can add the font to your `Gerstner.Styler` object. The next time it renders, it will have a generate `font-face` rule that you can use in your CSS (as shown in the `addStyle` command here).
 
 ```js
 s.addFont(f);
