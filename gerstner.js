@@ -61,7 +61,6 @@
   {
     this.totalWeight = 0;
     this.elements = [];
-    this.initialize.apply(this, arguments);
   }
 
   _.extend(WeightedRandom.prototype, {
@@ -94,5 +93,99 @@
     }
 
   });
+
+  // Gerstner.Font
+  // ---------------------------------------------------------
+
+  var Font = Gerstner.Font = function(fontName, settings)
+  {
+    this.fontName = fontName;
+    this.settings = settings;
+    this.$el = $("<div></div>");
+    this.el = this.$el[0];
+    this.glyphs = {};
+  }
+
+  _.extend(Font.prototype, {
+
+    $: function(selector) {
+      return this.$el.find(selector);
+    },
+
+    addGlyph : function(unicode, d, attribs) {
+      this.glyphs[unicode] = {
+        d : d,
+        attribs : attribs
+      }
+    },
+
+    render : function()
+    {
+      this.$el.html("<svg><defs><font><font-face></font-face></font></defs></svg>");
+
+      // add root attributes
+      this.$("svg").attr('xmlns', 'http://www.w3.org/2000/svg');
+      this.$("svg").attr('width', '100%');
+      this.$("svg").attr('height', '100%');
+  
+      // add font attributes
+      this.$("font").attr("id", this.fontName);
+      
+      if(this.settings["horiz-adv-x"])
+      {
+        this.$("font").attr("horiz-adv-x", this.settings["horiz-adv-x"]);
+        delete this.settings["horiz-adv-x"];
+      }
+
+      // add font-face attributes
+      this.$("font-face").attr("font-family", this.fontName);
+      _.each(this.settings, function(v,k) { this.$("font-face").attr(k, v); }, this);
+
+      // add glyphs
+      _.each(this.glyphs, function(v,k) {
+        var gel = $("<glyph></glyph>");
+        gel.attr("unicode", k);
+        gel.attr("d", v.d);
+        _.each(v.attribs, function(v2,k2) { gel.attr(k2, v2); });
+        this.$("font-face").append(gel);
+      }, this);
+    },
+
+    getBase64 : function()
+    {
+      return window.btoa(this.el.innerHTML);
+    }
+
+  });
+
+  /*
+  
+  
+      font_tag.selectAll("path")
+        .data(letters)
+        .enter().append("svg:glyph")
+        
+      ;
+  
+      return window.btoa(svgContainer.innerHTML);
+    }
+
+    function createStylesheet()
+    {
+      var s = new Gerstner.Styler();
+
+      s.addStyle("@font-face", {
+        "font-family": "piefont",
+        "src" : 'url(data:font/woff;charset=utf-8;base64,'+generateFontFace()+') format("svg")'
+      });
+    
+      s.addStyle("h1", {
+        "font-family": "piefont",
+        "font-size" : "50px"
+      });
+    
+      $('head').append(s.render().el);
+    }
+  */
 
 }).call(this);
