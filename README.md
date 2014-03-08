@@ -137,6 +137,8 @@ s.addStyle("h1", {
 });
 ```
 
+Please visit the [examples](/examples/generative_webfont) to see it in use.
+
 Generative Color
 ----------------
 
